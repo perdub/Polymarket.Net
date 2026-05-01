@@ -109,19 +109,19 @@ namespace Polymarket.Net.Interfaces.Clients.ClobApi
         /// <summary>
         /// Get trades for builder
         /// </summary>
+        /// <param name="builderCode">["<c>builder_code</c>"] Builder code to request for</param>
         /// <param name="tradeId">["<c>id</c>"] Filter by trade id</param>
-        /// <param name="takerAddress">["<c>taker</c>"] Filter by taker address</param>
-        /// <param name="makerAddress">["<c>maker</c>"] Filter by maker address</param>
         /// <param name="marketId">["<c>market</c>"] Filter by condition id</param>
+        /// <param name="tokenId">["<c>asset_id</c>"] Filter by token id</param>
         /// <param name="startTime">["<c>after</c>"] Filter by start time</param>
         /// <param name="endTime">["<c>before</c>"] Filter by end time</param>
         /// <param name="cursor">["<c>next_cursor</c>"] Next page cursor</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult> GetBuilderTradesAsync(
+        Task<WebCallResult<PolymarketPage<PolymarketBuilderTrade>>> GetBuilderTradesAsync(
+            string builderCode,
             string? tradeId = null,
-            string? takerAddress = null,
-            string? makerAddress = null,
             string? marketId = null,
+            string? tokenId = null,
             DateTime? startTime = null,
             DateTime? endTime = null,
             string? cursor = null, 
