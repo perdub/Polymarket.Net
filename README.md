@@ -295,6 +295,9 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 3.1.0 - 09 May 2026
+    * Added support for Poly1271 signing
+
 * Version 3.0.3 - 01 May 2026
     * Fixed incorrect makerAddress parameter serialization in GetUserTradesAsync
 
