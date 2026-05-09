@@ -63,7 +63,11 @@ var bookInfo = await polymarketRestClient.ClobApi.ExchangeData.GetOrderBooksAsyn
 *Place order:*
 ```csharp
 var restClient = new PolymarketRestClient(opts => {
-	opts.ApiCredentials = new PolymarketCredentials(new PolymarketL1Credential("PRIVATEKEY", "PRIVATESIGNERKEY"));
+	opts.ApiCredentials = new PolymarketCredentials(new PolymarketL1Credential(
+        SignType.Poly1271,
+        "PRIVATEKEY",
+        "DEPOSITADDRESS"
+        ));
 });
 
 // Update the client with layer 2 credentials
@@ -77,8 +81,7 @@ var result = await polymarketRestClient.ClobApi.Trading.PlaceOrderAsync(
 	OrderSide.Buy,
 	OrderType.Limit, 
 	50, 
-	price: 0.1m,
-	feeRateBps: 0);
+	price: 0.1m);
 ```
 
 *WebSocket subscription:*
@@ -110,6 +113,29 @@ var subscriptionResult = await polymarketSocketClient.ClobApi.SubscribeToTokenUp
 ```
 
 ### Authentication
+Authenticate using Poly1271 signing and a deposit address, providing the private key and the deposit address. This should be used for Polymarket accounts created after 04 May 2026. This will require you to request the layer 2 credentials before orders can be placed:
+```csharp
+var credsPoly1271Layer1 = new PolymarketCredentials(
+	new PolymarketL1Credential(
+		SignType.Poly1271, // Poly1271 signing, for accounts created after 4 May 2026
+		"0x00..", // The private key for the wallet
+		"0x00..")); // The polymarket deposit address, can be found in the web interface under `Profile -> Copy Address`
+```
+
+Authenticate using Poly1271 signing and a deposit address, providing the private key and the deposit address, while also providing previously requested layer 2 credentials. Can be used to place orders directly:
+```csharp
+var credsPoly1271WithLayer2 = new PolymarketCredentials(
+    new PolymarketL1Credential(
+		SignType.Poly1271, // Poly1271 signing, for accounts created after 4 May 2026
+		"0x00..", // The private key for the wallet
+		"0x00..")); // The polymarket deposit address, can be found in the web interface under `Profile -> Copy Address`
+    new HMACPassCredential(
+        "KEY",// The L2 API key as previously retrieved with `polymarketRestClient.ClobApi.Account.GetOrCreateApiCredentialsAsync()`
+        "SEC", // The L2 API secret as previously retrieved with `polymarketRestClient.ClobApi.Account.GetOrCreateApiCredentialsAsync()`
+        "PASS" // The L2 API passphrase as previously retrieved with `polymarketRestClient.ClobApi.Account.GetOrCreateApiCredentialsAsync()`
+    ));
+```
+
 Authenticate using an email account and providing the exported private key and the funding address. This will require you to request the layer 2 credentials before orders can be placed:
 ```csharp
 var credsEmailLayer1 = new PolymarketCredentials(
