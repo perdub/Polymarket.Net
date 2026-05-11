@@ -26,5 +26,16 @@ namespace Polymarket.Net.Objects.Sockets
 
             MessageRouter = MessageRouter.CreateWithoutHandler<T>("");
         }
+
+        public PolymarketInitialQuery(string type, bool customFeatureEnabled) : base(new PolymarketSocketInitialRequest
+        {
+            Type = type,
+            CustomFeatureEnabled = customFeatureEnabled ? true : null,
+        }, false, 1)
+        {
+            ExpectsResponse = false;
+            MessageRouter = MessageRouter.CreateWithoutHandler<T>("");
+        }
+
     }
 }
