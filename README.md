@@ -1,5 +1,8 @@
 # ![Polymarket.Net](https://raw.githubusercontent.com/JKorf/Polymarket.Net/main/Polymarket.Net/Icon/icon.png) Polymarket.Net  
 
+## About this fork
+I fixed little bug with websocket client, and make dedicated package with it(i am not sure if my changes correct and maybe its because i use library wrong so i am not going to open PR)
+
 [![.NET](https://img.shields.io/github/actions/workflow/status/JKorf/Polymarket.Net/dotnet.yml?style=for-the-badge)](https://github.com/JKorf/Polymarket.Net/actions/workflows/dotnet.yml) ![License](https://img.shields.io/github/license/JKorf/Polymarket.Net?style=for-the-badge)
 
 Polymarket.Net is a client library for accessing the [Polymarket REST and Websocket API](https://docs.polymarket.com/developers/CLOB/introduction). 
