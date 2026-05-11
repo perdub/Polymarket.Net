@@ -22,8 +22,11 @@ jobs:
     - name: Restore
       run: dotnet restore Polymarket.Net/Polymarket.Net.csproj
 
+    - name: Build
+      run: dotnet build Polymarket.Net/Polymarket.Net.csproj -c Release --no-restore
+
     - name: Pack
-      run: dotnet pack Polymarket.Net/Polymarket.Net.csproj -c Release --no-restore -o ./nupkg
+      run: dotnet pack Polymarket.Net/Polymarket.Net.csproj -c Release --no-build -o ./nupkg
 
     - name: Push to nuget.org
       run: dotnet nuget push ./nupkg/*.nupkg --source "https://api.nuget.org/v3/index.json" --api-key ${{ secrets.NUGET_API_KEY }} --skip-duplicate
